@@ -1,0 +1,24 @@
+{
+  "rtype": 1,
+  "mtype": 2,
+  "name": "SolarAssistant PV",
+  "manufacturer": "SolarAssistant",
+  "dev_type": "solarassistant_pv",
+  "upd_delay": 2000,
+  "delay_accumulated": false,
+  "type_designation": {
+    "fixed": "SolarAssistant PV"
+  },
+  "version": {
+    "fixed": "1.0"
+  },
+  "serial": {
+    "fixed": "sa-pv"
+  },
+  "power_w": {
+    "address": "/api/v1/metrics?topic=total/pv_power&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  }
+}

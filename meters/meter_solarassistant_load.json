@@ -1,0 +1,24 @@
+{
+  "rtype": 1,
+  "mtype": 1,
+  "name": "SolarAssistant Hausverbrauch",
+  "manufacturer": "SolarAssistant",
+  "dev_type": "solarassistant_load",
+  "upd_delay": 2000,
+  "delay_accumulated": false,
+  "type_designation": {
+    "fixed": "SolarAssistant Load"
+  },
+  "version": {
+    "fixed": "1.0"
+  },
+  "serial": {
+    "fixed": "sa-load"
+  },
+  "power_w": {
+    "address": "/api/v1/metrics?topic=total/load_power&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  }
+}

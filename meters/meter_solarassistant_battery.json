@@ -1,0 +1,30 @@
+{
+  "rtype": 1,
+  "mtype": 4,
+  "name": "SolarAssistant Batterie",
+  "manufacturer": "SolarAssistant",
+  "dev_type": "solarassistant_battery",
+  "upd_delay": 2000,
+  "delay_accumulated": false,
+  "type_designation": {
+    "fixed": "SolarAssistant Battery"
+  },
+  "version": {
+    "fixed": "1.0"
+  },
+  "serial": {
+    "fixed": "sa-battery"
+  },
+  "power_w": {
+    "address": "/api/v1/metrics?topic=total/battery_power&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "soc": {
+    "address": "/api/v1/metrics?topic=total/battery_state_of_charge&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  }
+}
