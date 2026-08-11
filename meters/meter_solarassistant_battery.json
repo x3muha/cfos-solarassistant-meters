@@ -5,12 +5,12 @@
   "manufacturer": "SolarAssistant",
   "dev_type": "solarassistant_battery",
   "upd_delay": 2000,
-  "delay_accumulated": false,
+  "delay_accumulated": true,
   "type_designation": {
     "fixed": "SolarAssistant Battery"
   },
   "version": {
-    "fixed": "1.0"
+    "fixed": "1.1"
   },
   "serial": {
     "fixed": "sa-battery"
@@ -26,5 +26,29 @@
     "type": "float",
     "regex": "(-?\\d+(?:\\.\\d+)?)",
     "resolution": 1.0
+  },
+  "*voltageV": {
+    "address": "/api/v1/metrics?topic=total/battery_voltage&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "*currentA": {
+    "address": "/api/v1/metrics?topic=total/battery_current&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "import_wh": {
+    "address": "/api/v1/metrics?topic=total/battery_energy_in&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1000.0
+  },
+  "export_wh": {
+    "address": "/api/v1/metrics?topic=total/battery_energy_out&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1000.0
   }
 }

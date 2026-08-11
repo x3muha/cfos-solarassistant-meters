@@ -5,12 +5,12 @@
   "manufacturer": "SolarAssistant",
   "dev_type": "solarassistant_load",
   "upd_delay": 2000,
-  "delay_accumulated": false,
+  "delay_accumulated": true,
   "type_designation": {
     "fixed": "SolarAssistant Load"
   },
   "version": {
-    "fixed": "1.0"
+    "fixed": "1.1"
   },
   "serial": {
     "fixed": "sa-load"
@@ -20,5 +20,53 @@
     "type": "float",
     "regex": "(-?\\d+(?:\\.\\d+)?)",
     "resolution": 1.0
+  },
+  "voltage_l1": {
+    "address": "/api/v1/metrics?topic=inverter_1/ac_output_voltage_1&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "voltage_l2": {
+    "address": "/api/v1/metrics?topic=inverter_1/ac_output_voltage_2&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "voltage_l3": {
+    "address": "/api/v1/metrics?topic=inverter_1/ac_output_voltage_3&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "power_w_l1": {
+    "address": "/api/v1/metrics?topic=inverter_1/load_power_1&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "power_w_l2": {
+    "address": "/api/v1/metrics?topic=inverter_1/load_power_2&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "power_w_l3": {
+    "address": "/api/v1/metrics?topic=inverter_1/load_power_3&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "*frequencyHz": {
+    "address": "/api/v1/metrics?topic=total/ac_output_frequency&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "import_wh": {
+    "address": "/api/v1/metrics?topic=total/load_energy&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1000.0
   }
 }

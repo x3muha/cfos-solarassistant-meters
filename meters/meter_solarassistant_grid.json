@@ -5,12 +5,12 @@
   "manufacturer": "SolarAssistant",
   "dev_type": "solarassistant_grid",
   "upd_delay": 2000,
-  "delay_accumulated": false,
+  "delay_accumulated": true,
   "type_designation": {
     "fixed": "SolarAssistant Grid"
   },
   "version": {
-    "fixed": "1.0"
+    "fixed": "1.1"
   },
   "serial": {
     "fixed": "sa-grid"
@@ -20,5 +20,59 @@
     "type": "float",
     "regex": "(-?\\d+(?:\\.\\d+)?)",
     "resolution": 1.0
+  },
+  "voltage_l1": {
+    "address": "/api/v1/metrics?topic=inverter_1/grid_voltage_1&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "voltage_l2": {
+    "address": "/api/v1/metrics?topic=inverter_1/grid_voltage_2&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "voltage_l3": {
+    "address": "/api/v1/metrics?topic=inverter_1/grid_voltage_3&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "power_w_l1": {
+    "address": "/api/v1/metrics?topic=inverter_1/grid_power_1&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "power_w_l2": {
+    "address": "/api/v1/metrics?topic=inverter_1/grid_power_2&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "power_w_l3": {
+    "address": "/api/v1/metrics?topic=inverter_1/grid_power_3&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "*frequencyHz": {
+    "address": "/api/v1/metrics?topic=total/grid_frequency&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "import_wh": {
+    "address": "/api/v1/metrics?topic=total/grid_energy_in&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1000.0
+  },
+  "export_wh": {
+    "address": "/api/v1/metrics?topic=total/grid_energy_out&value=1",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1000.0
   }
 }
