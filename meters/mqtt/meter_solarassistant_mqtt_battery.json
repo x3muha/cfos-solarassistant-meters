@@ -1,0 +1,42 @@
+{
+  "rtype": 2,
+  "mtype": 4,
+  "name": "SolarAssistant MQTT Batterie",
+  "manufacturer": "SolarAssistant",
+  "dev_type": "solarassistant_mqtt_battery",
+  "upd_delay": 2000,
+  "delay_accumulated": true,
+  "type_designation": {
+    "fixed": "SolarAssistant MQTT Battery"
+  },
+  "version": {
+    "fixed": "1.0"
+  },
+  "serial": {
+    "fixed": "sa-mqtt-battery"
+  },
+  "power_w": {
+    "address": "solar_assistant/total/battery_power/state",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "soc": {
+    "address": "solar_assistant/total/battery_state_of_charge/state",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "*voltageV": {
+    "address": "solar_assistant/inverter_1/battery_voltage/state",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "*currentA": {
+    "address": "solar_assistant/inverter_1/battery_current/state",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  }
+}

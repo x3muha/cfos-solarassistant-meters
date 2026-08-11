@@ -1,6 +1,6 @@
 # cFos SolarAssistant Meterdateien
 
-Meterdateien für cFos Power Brain / cFos Wallboxen, um Werte direkt per IP aus SolarAssistant auszulesen.
+Meterdateien für cFos Power Brain / cFos Wallboxen, um Werte per HTTP oder MQTT aus SolarAssistant auszulesen.
 
 Offizielle Projekte:
 
@@ -31,6 +31,10 @@ Die Dateien nutzen die SolarAssistant HTTP-API:
 | `meters/meter_solarassistant_battery.json` | Batterie | Leistung, Energie, SoC, Spannung und Strom | Batteriespeicher |
 | `meters/meter_solarassistant_load.json` | Verbrauch | Leistung, Energie, Frequenz, Spannung und Leistung je Phase | Hausverbrauch, hauptsächlich Anzeige |
 
+Unter `meters/mqtt/` liegen zusätzlich MQTT-Ausführungen dieser vier Meter. Sie
+verwenden eigene `dev_type`-Namen und können deshalb parallel zu den HTTP-Profilen
+importiert werden.
+
 Beim Batterie-Meter wird zusätzlich zur Leistung auch der Batterieladestand (`SoC`) übertragen.
 
 Die Energieangaben von SolarAssistant werden von kWh in die von cFos erwarteten Wh
@@ -52,6 +56,45 @@ GET /api/v1/metrics
 
 Fehlen die verwendeten `inverter_1/*`-Topics, sollten die betreffenden Felder aus
 der lokalen Meterdatei entfernt oder ein gerätespezifisches Profil erstellt werden.
+
+## Optionale MQTT-Profile
+
+Die Profile unter `meters/mqtt/` verwenden den cFos-Lesetyp `rtype = 2`. cFos
+abonniert für jedes Feld direkt das jeweilige SolarAssistant-MQTT-Topic. Die
+Profile erwarten numerische Klartext-Nachrichten unter Topics wie:
+
+```text
+solar_assistant/inverter_1/grid_power/state
+solar_assistant/total/battery_power/state
+```
+
+Beim Anlegen des Meters wird der MQTT-Broker ausschließlich in der cFos-
+Gerätekonfiguration eingetragen, beispielsweise mit folgenden Platzhaltern:
+
+```text
+mqtt://<BENUTZER>:<PASSWORT>@<SOLARASSISTANT-IP>:1883
+```
+
+Die JSON-Profile enthalten absichtlich weder Broker-Adresse noch Benutzername
+oder Passwort. Reale Zugangsdaten dürfen nicht ins Repository übernommen werden.
+
+Wichtige Einschränkungen:
+
+- Die verfügbaren MQTT-Topics hängen von Wechselrichter, SolarAssistant-Version
+  und Konfiguration ab. Die enthaltenen Profile wurden gegen einen dreiphasigen
+  Deye mit `inverter_1`-Topics geprüft.
+- Diese Installation veröffentlichte ihre nutzbaren Messwerte unter den
+  `.../state`-Topics. Vor dem Einsatz sollte die eigene Topic-Liste mit einem
+  MQTT-Client kontrolliert werden.
+- Die kumulierten Energiezähler für Netz, PV, Verbrauch und Batterie wurden dort
+  nicht per MQTT veröffentlicht. Deshalb enthalten die MQTT-Profile keine
+  `import_wh`- oder `export_wh`-Felder.
+- In einem Test mit cFos Charging Manager 2.12.12 lag der Regelzyklus sowohl per
+  MQTT als auch über den lokalen HTTP-Cache bei etwa 3,01 Sekunden. MQTT war dort
+  funktional, aber nicht praktisch schneller.
+
+Wenn Energiezähler benötigt werden, sind die HTTP-Profile zusammen mit dem
+lokalen Cache die vollständigere Variante.
 
 ## Optionaler lokaler Cache für schnelle Regelzyklen
 
@@ -115,6 +158,11 @@ meters/
   meter_solarassistant_grid.json
   meter_solarassistant_load.json
   meter_solarassistant_pv.json
+  mqtt/
+    meter_solarassistant_mqtt_battery.json
+    meter_solarassistant_mqtt_grid.json
+    meter_solarassistant_mqtt_load.json
+    meter_solarassistant_mqtt_pv.json
 proxy/
   solarassistant_metrics_proxy.py
   solarassistant-proxy.conf.example
@@ -128,7 +176,7 @@ MIT License, siehe `LICENSE`.
 
 ## English
 
-Meter definition files for cFos Power Brain / cFos Wallbox devices to read values directly from SolarAssistant via IP.
+Meter definition files for cFos Power Brain / cFos Wallbox devices to read values from SolarAssistant through HTTP or MQTT.
 
 Official projects:
 
@@ -159,6 +207,10 @@ The files use the SolarAssistant HTTP API:
 | `meters/meter_solarassistant_battery.json` | Battery | Power, energy, SoC, voltage and current | Battery storage |
 | `meters/meter_solarassistant_load.json` | Consumption | Power, energy, frequency, voltage and power per phase | House load, mainly for display |
 
+`meters/mqtt/` additionally contains MQTT variants of all four meters. They use
+separate `dev_type` names and can therefore be imported alongside the HTTP
+profiles.
+
 The battery meter also transmits the battery state of charge (`SoC`) in addition to battery power.
 
 SolarAssistant energy values are converted from kWh to Wh as required by cFos.
@@ -179,6 +231,43 @@ GET /api/v1/metrics
 
 If the referenced `inverter_1/*` topics are missing, remove those fields from the
 local meter file or create a device-specific profile.
+
+## Optional MQTT profiles
+
+The profiles in `meters/mqtt/` use the cFos read type `rtype = 2`. cFos directly
+subscribes to the corresponding SolarAssistant MQTT topic for each field. The
+profiles expect plain numeric payloads on topics such as:
+
+```text
+solar_assistant/inverter_1/grid_power/state
+solar_assistant/total/battery_power/state
+```
+
+Configure the MQTT broker only in the cFos device configuration, for example by
+using these placeholders:
+
+```text
+mqtt://<USERNAME>:<PASSWORD>@<SOLARASSISTANT-IP>:1883
+```
+
+The JSON profiles intentionally contain no broker address, username, or password.
+Never commit real credentials to the repository.
+
+Important limitations:
+
+- Available MQTT topics depend on the inverter, SolarAssistant version, and
+  configuration. These profiles were verified with a three-phase Deye exposing
+  `inverter_1` topics.
+- The tested installation published the relevant measurements below `.../state`
+  topics. Inspect the local topic list with an MQTT client before use.
+- It did not publish cumulative grid, PV, load, or battery energy totals through
+  MQTT. The MQTT profiles therefore contain no `import_wh` or `export_wh` fields.
+- In a test with cFos Charging Manager 2.12.12, both MQTT and the local HTTP cache
+  produced an approximately 3.01-second control cycle. MQTT worked, but was not
+  practically faster in that setup.
+
+Use the HTTP profiles with the local cache when cumulative energy totals are
+required.
 
 ## Optional local cache for fast control cycles
 

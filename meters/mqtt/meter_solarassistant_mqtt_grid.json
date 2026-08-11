@@ -1,0 +1,66 @@
+{
+  "rtype": 2,
+  "mtype": 1,
+  "name": "SolarAssistant MQTT Netz",
+  "manufacturer": "SolarAssistant",
+  "dev_type": "solarassistant_mqtt_grid",
+  "upd_delay": 2000,
+  "delay_accumulated": true,
+  "type_designation": {
+    "fixed": "SolarAssistant MQTT Grid"
+  },
+  "version": {
+    "fixed": "1.0"
+  },
+  "serial": {
+    "fixed": "sa-mqtt-grid"
+  },
+  "power_w": {
+    "address": "solar_assistant/inverter_1/grid_power/state",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "voltage_l1": {
+    "address": "solar_assistant/inverter_1/grid_voltage_1/state",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "voltage_l2": {
+    "address": "solar_assistant/inverter_1/grid_voltage_2/state",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "voltage_l3": {
+    "address": "solar_assistant/inverter_1/grid_voltage_3/state",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "power_w_l1": {
+    "address": "solar_assistant/inverter_1/grid_power_1/state",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "power_w_l2": {
+    "address": "solar_assistant/inverter_1/grid_power_2/state",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "power_w_l3": {
+    "address": "solar_assistant/inverter_1/grid_power_3/state",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  },
+  "*frequencyHz": {
+    "address": "solar_assistant/inverter_1/grid_frequency/state",
+    "type": "float",
+    "regex": "(-?\\d+(?:\\.\\d+)?)",
+    "resolution": 1.0
+  }
+}
